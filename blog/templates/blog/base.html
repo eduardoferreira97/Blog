@@ -1,5 +1,10 @@
 {% load static %}
 
+{% block extrahead %}
+<script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
+{{ block.super }}
+{% endblock %}
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -10,11 +15,13 @@
     <title> {% block title %}Home{% endblock  %}</title>
 </head>
 <body>
-    <a href="{% url 'blog:new_post' %}">Publicar</a> <br>
+    {% include 'blog/header.html' %}
+    {% comment %} {% include 'blog/menu.html' %} {% endcomment %}
+    <main class="main-content-container">
     {% block content %}
     
     {% endblock  %}
-
+    </main>
     {% include 'blog/footer.html' %}
 </body>
 </html>

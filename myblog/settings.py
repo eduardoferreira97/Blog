@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CRISPY_TEMPLATE_PACK = 'bootstrap'
+
 
 # Application definition
 
@@ -38,6 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "blog",
+    "crispy_forms",
+
 ]
 
 MIDDLEWARE = [
@@ -111,7 +116,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATICSFILES_DIR = [
+STATICSFILES_DIRS = [
     BASE_DIR / 'base_static',
 ]
 

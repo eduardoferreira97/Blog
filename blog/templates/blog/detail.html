@@ -3,20 +3,62 @@
 {% load static %}
 {% block title %} Detalhes{% endblock  %}
 {% block content %}
-    <br>
-    <a href="{% url 'blog:index' %}">Voltar</a>
-    <br> <br>
-    Titulo: {{details.title}} - {{details.created_at|date:"d/m/Y"}} às {{details.created_at|date:"H:i"}}
-    <br><br>
+
+<div class="recipe recipe-item">
+    <a href="{% url 'blog:index' %}"><ion-icon name="arrow-back-outline"></ion-icon></a>
     {% if details.cover %}
-    <img src="{{details.cover.url}}" alt="">  
+        <div class="recipe-cover">
+            
+                <img src="{{ details.cover.url }}" alt="Temporário">
+            
+        </div>
     {% endif %}
-    <br><br>
-    Autor: {{details.author}} <br> <br>
-    Descrição: {{details.text|linebreaksbr}}
-    <br> <br>   
-    <a href="{% url 'blog:edit' pk=details.pk %}">Editar post</a>
-    <br><br>
+    <div class="recipe-title-container">
+        <h2 class="recipe-title">
+                {{ details.title }}
+            
+        </h2>
+    </div>
+
+    <div class="recipe-author">
+
+        {% if details.author is not None %}
+            <span class="recipe-author-item">
+                
+                {% if recipe.author.profile %}
+                    <a href="{% url 'cook:index' %}">
+                {% endif %}
+
+                <i class="fas fa-user"></i>
+                {% if recipe.author.first_name %}
+                    {{ details.author.first_name }} {{ details.author.last_name }}
+                {% else %}
+                    {{ details.author.username }}
+                {% endif %}
+
+                {% if details.author.profile %}
+                    </a>
+                {% endif %}
+
+            </span>
+        {% endif %}
+
+        <span class="recipe-author-item">
+            <i class="fas fa-calendar-alt"></i>
+            {{ details.created_at|date:"d/m/Y" }} às {{ details.created_at|date:"H:i" }}
+        </span>
+
+    </div>
+
+    <div class="recipe-content">
+        <p>{{ details.text|linebreaksbr }}</p>
+    </div>
+<a href="{% url 'blog:edit' pk=details.pk %}">Editar post</a>
+</div>
+
+
+    
+
 
 
 

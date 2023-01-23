@@ -1,14 +1,28 @@
 {% extends 'blog/base.html' %}
+
 {% load static %}
+
 {% block title %}Novo Post{% endblock  %}
+
 {% block content %}
-<br>
-<a href="{% url 'blog:index' %}"><-</a>
-<h2>Novo post</h2>
+<a href="{% url 'blog:index' %}"><ion-icon name="arrow-back-outline"></ion-icon></a>
+<div class="main-content container">
+
+    <h2>Novo post</h2>
     <form method="POST" class="post-form" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-secondary" value="POST">Salvar</button>
+       {% csrf_token %}
+        <div class="form-content form-content-grid">
+            <div class="form-group">
+        <field for="{{form.id_for_label}}">{{form.label}}</field>
+            {{form.as_p}}
+            </div>
+        </div>
+        <div class="form-content form-content-grid">
+            <div class="form-group">
+        <button type="submit" value="POST">Salvar</button>
+            </div>
+        </div>
     </form>
+</div>
 
 {% endblock %}
