@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% for posts in post %}
+    <br>
+    <br>
+    <a href="{% url 'blog:details' pk=posts.pk slug=posts.slug %}"> {{posts.title}}</a> <br>
+    {{posts.author}} <br>
+    {{posts.text}}
+    <br>
+
+{% endfor %}
+
+
+{% endblock  %}

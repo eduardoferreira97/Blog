@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+{% block title %} Detalhes{% endblock  %}
+{% block content %}
+    <br>
+    <a href="{% url 'blog:index' %}">Voltar</a>
+    <br> <br>
+    Titulo: {{details.title}} - {{details.created_at|date:"d/m/Y"}} às {{details.created_at|date:"H:i"}}
+    <br><br>
+    {% if details.cover %}
+    <img src="{{details.cover.url}}" alt="">  
+    {% endif %}
+    <br><br>
+    Autor: {{details.author}} <br> <br>
+    Descrição: {{details.text|linebreaksbr}}
+    <br> <br>   
+    <a href="{% url 'blog:edit' pk=details.pk %}">Editar post</a>
+    <br><br>
+
+
+
+{% endblock  %}
