@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user
 from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
                               render)
 from django.utils import timezone
@@ -14,7 +15,8 @@ def index(request):
 
 def detail(request, pk, slug):
     details = get_object_or_404(Post, pk=pk, is_published=True)
-    return render(request, 'blog/detail.html', {'details': details, 'title': f'{details.title}'})
+    return render(request, 'blog/detail.html', {'details': details,
+                                                'title': f'{details.title}'})
 
 
 def post(request):
@@ -24,6 +26,7 @@ def post(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.created_at = timezone.now()
+            post.author = get_user(request)
             post.save()
             return redirect('blog:index')
     else:
@@ -37,7 +40,8 @@ def edit(request, pk):
         form = PostForm(request.POST or None, request.FILES, instance=edit)
         if form.is_valid():
             edit = form.save(commit=False)
-            edit.created_at = timezone.now()
+            edit.update_at = timezone.now()
+            edit.author = get_user(request)
             edit.save()
             return redirect('blog:index')
     else:
@@ -49,4 +53,5 @@ def edit(request, pk):
 def filter(request, pk, username):
     filter = get_list_or_404(Post.objects.filter(
         author__id=pk).order_by('-id'))
-    return render(request, 'blog/index.html', {'post': filter, 'title': f'{username} | Posts'})
+    return render(request, 'blog/index.html', {'post': filter,
+                                               'title': f'{username} | Posts'})

@@ -1,0 +1,18 @@
+{% extends 'login/base.html' %}
+
+
+{% block content %}
+
+<div class="main-content center container">
+    <h2>Registro</h2>
+</div>
+
+{% include 'login/messages.html' %}
+
+{% include 'login/form.html' %}
+
+<div class="form-content form-content">
+    Já possui conta? <a href="{% url 'login:login' %}">Clique aqui</a> e faça login.
+</div>
+
+{% endblock content%}

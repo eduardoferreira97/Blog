@@ -27,7 +27,7 @@
 
                 <i class="fas fa-user"></i>
                 {% if posts.author.first_name %}
-                    {{ posts.author.first_name }} {{ posts.author.last_name }}
+                <a href="{% url 'blog:filter' posts.author.id posts.author.username %}"> {{ posts.author.first_name }} {{ posts.author.last_name }}</a>
                 {% else %}
                 <a href="{% url 'blog:filter' posts.author.id posts.author.username %}">{{ posts.author.username }}</a>
                 {% endif %}
