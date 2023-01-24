@@ -9,12 +9,12 @@ from .post import PostForm
 def index(request):
     post = get_list_or_404(Post.objects.filter(
         is_published=True).order_by('-id'))
-    return render(request, 'blog/index.html', {'post': post})
+    return render(request, 'blog/index.html', {'post': post, 'title': 'Home'})
 
 
 def detail(request, pk, slug):
     details = get_object_or_404(Post, pk=pk, is_published=True)
-    return render(request, 'blog/detail.html', context={'details': details})
+    return render(request, 'blog/detail.html', {'details': details, 'title': f'{details.title}'})
 
 
 def post(request):
@@ -44,3 +44,9 @@ def edit(request, pk):
         form = PostForm(instance=edit)
 
     return render(request, 'blog/post.html', {'form': form})
+
+
+def filter(request, pk, username):
+    filter = get_list_or_404(Post.objects.filter(
+        author__id=pk).order_by('-id'))
+    return render(request, 'blog/index.html', {'post': filter, 'title': f'{username} | Posts'})

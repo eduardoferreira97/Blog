@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% load static %}
-{% block title %} Detalhes{% endblock  %}
+{% block title %} {{title}} | Detalhes{% endblock  %}
 {% block content %}
 
 <div class="recipe recipe-item">
@@ -33,11 +33,11 @@
                 {% if recipe.author.first_name %}
                     {{ details.author.first_name }} {{ details.author.last_name }}
                 {% else %}
-                    {{ details.author.username }}
+                    <a href="{% url 'blog:filter' details.author.id details.author.username %}">{{ details.author.username }}</a>
                 {% endif %}
 
                 {% if details.author.profile %}
-                    </a>
+                    
                 {% endif %}
 
             </span>

@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% block title %}{{title}}{% endblock  %}
+
 {% block content %}
 
 {% for posts in post %}
@@ -27,7 +29,7 @@
                 {% if posts.author.first_name %}
                     {{ posts.author.first_name }} {{ posts.author.last_name }}
                 {% else %}
-                    {{ posts.author.username }}
+                <a href="{% url 'blog:filter' posts.author.id posts.author.username %}">{{ posts.author.username }}</a>
                 {% endif %}
 
                 {% if posts.author.profile %}
