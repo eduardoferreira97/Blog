@@ -12,11 +12,14 @@
     <form method="POST" class="post-form" enctype="multipart/form-data">
        {% csrf_token %}
         <div class="form-content form-content-grid">
+
             <div class="form-group">
-        <field for="{{form.id_for_label}}">{{form.label}}</field>
-            {{form.as_p}}
+                <field for="{{form.id_for_label}}">{{form.label}}</field>
+                    {{form.as_p}}
             </div>
+
         </div>
+
         <div class="form-content form-content-grid">
             <div class="form-group">
         <button type="submit" value="POST">Salvar</button>
