@@ -7,60 +7,51 @@
 {% block content %}
 
 {% for posts in post %}
-<div class="main-content main-content-list container">
-<div class="recipe recipe-list-item">
 
-    <div class="recipe-title-container">
-        <h2 class="recipe-title">
-            {{ posts.title }}
-
-        </h2>
-    </div>
-    <div class="recipe-author">
-
-        {% if posts.author is not None %}
-            <span class="recipe-author-item">
-                
-                {% if posts.author.profile %}
-                    <a href="{% url 'authors:profile' posts.author.profile.id %}">
-                {% endif %}
-
-                <i class="fas fa-user"></i>
-                {% if posts.author.first_name %}
-                <a href="{% url 'blog:filter' posts.author.id posts.author.username %}"> {{ posts.author.first_name }} {{ posts.author.last_name }}</a>
-                {% else %}
-                <a href="{% url 'blog:filter' posts.author.id posts.author.username %}">{{ posts.author.username }}</a>
-                {% endif %}
-
-                {% if posts.author.profile %}
+    {% if posts.author is not None %}
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <!-- Post preview-->
+                <div class="post-preview">
+                    <a href="{% url 'blog:details' posts.id posts.slug %}">
+                        <h2 class="post-title">{{ posts.title }}</h2>
+                        {% if posts.sub_title %}
+                        <h3 class="post-subtitle">{{ posts.sub_title }}</h3>
+                        {% endif %}
                     </a>
-                {% endif %}
-
-            </span>
-        {% endif %}
-
-        <span class="recipe-author-item">
-            <i class="fas fa-calendar-alt"></i>
-            {{ posts.created_at|date:"d/m/Y" }} às {{ posts.created_at|date:"H:i" }}
-        </span>
+                    <p class="post-meta">
+                        <span class="recipe-author-item">
+                            {% if posts.author.profile %}
+                                Postado por <a href="{% url 'authors:profile' posts.author.profile.id %}">
+                            {% endif %}
+                                <i class="fas fa-user"></i>
+                            {% if posts.author.first_name %}
+                                Postado por <a href="{% url 'blog:filter' posts.author.id posts.author.username %}"> {{ posts.author.first_name }} {{ posts.author.last_name }}</a>
+                            {% else %}
+                                Postado por <a href="{% url 'blog:filter' posts.author.id posts.author.username %}">{{ posts.author.username }}</a>
+                            {% endif %}
+                           </span>
+                        <span class="recipe-author-item">
+                        <i class="fas fa-calendar-alt"></i> {{ posts.created_at|date:"d/m/Y" }} às {{ posts.created_at|date:"H:i" }}
+                        </span>
+                    </p>
+                </div>
+                <!-- Divider-->
+                <hr class="my-4" />
+            </div>
+        </div>
     </div>
-
-    <div class="recipe-content">
-        <p>{{ posts.text|linebreaksbr|slice:":250" }}...</p>
-    </div>
-    
-    <footer class="recipe-footer">
-            <a class="recipe-read-more button button-dark button-full-width" href="{% url 'blog:details' posts.id posts.slug %}">
-                <i class="fas fa-eye"></i>
-                <span>Leia mais...</span>
-            </a>
-        </footer>
-
-</div>
+{% endif %}
 {% empty %}
-    <div class="center m-y">
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
         <h1>Não foi encontrado nenhum post 🥲</h1>
+        </div>
     </div>
+</div>
+
 
 {% endfor %}
 

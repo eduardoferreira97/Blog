@@ -2,68 +2,52 @@
 
 {% load static %}
 {% block title %} {{title}} | Detalhes{% endblock  %}
+
 {% block content %}
 
-<div class="recipe recipe-item">
-    <a href="{% url 'blog:index' %}"><ion-icon name="arrow-back-outline"></ion-icon></a>
-    {% if details.cover %}
-        <div class="recipe-cover">
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+
+                <p>{{ details.text|linebreaksbr }}</p>
+
+                <div class="recipe-author">
+                {% if details.author is not None %}
+                        <span class="recipe-author-item">
+                            Postado por 
+                            {% if recipe.author.profile %}
+                                <a href="{% url 'cook:index' %}">
+                            {% endif %}
             
-                <img src="{{ details.cover.url }}" alt="Temporário">
+                            <i class="fas fa-user"></i>
+                            {% if recipe.author.first_name %}
+                                {{ details.author.first_name }} {{ details.author.last_name }}
+                            {% else %}
+                                <a href="{% url 'blog:filter' details.author.id details.author.username %}">{{ details.author.username }}</a>
+                            {% endif %}
             
+                            {% if details.author.profile %}
+                                
+                            {% endif %}
+            
+                        </span>
+                    {% endif %}
+            
+                    <span class="recipe-author-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        {{ details.created_at|date:"d/m/Y" }} às {{ details.created_at|date:"H:i" }}
+                    </span>
+
+                    {% if request.user.is_authenticated and request.user.username == details.author.username %}
+                    <div class="d-flex justify-content-end mb-4">
+                        <a class="btn btn-primary text-uppercase" href="{% url 'blog:edit' pk=details.pk %}">Editar post</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-    {% endif %}
-    <div class="recipe-title-container">
-        <h2 class="recipe-title">
-                {{ details.title }}
-            
-        </h2>
     </div>
-
-    <div class="recipe-author">
-
-        {% if details.author is not None %}
-            <span class="recipe-author-item">
-                
-                {% if recipe.author.profile %}
-                    <a href="{% url 'cook:index' %}">
-                {% endif %}
-
-                <i class="fas fa-user"></i>
-                {% if recipe.author.first_name %}
-                    {{ details.author.first_name }} {{ details.author.last_name }}
-                {% else %}
-                    <a href="{% url 'blog:filter' details.author.id details.author.username %}">{{ details.author.username }}</a>
-                {% endif %}
-
-                {% if details.author.profile %}
-                    
-                {% endif %}
-
-            </span>
-        {% endif %}
-
-        <span class="recipe-author-item">
-            <i class="fas fa-calendar-alt"></i>
-            {{ details.created_at|date:"d/m/Y" }} às {{ details.created_at|date:"H:i" }}
-        </span>
-
-    </div>
-
-    <div class="recipe-content">
-        <p>{{ details.text|linebreaksbr }}</p>
-    </div>
-    {% if request.user.is_authenticated %}
-    {% if request.user.username == details.author.username %}
-    <a href="{% url 'blog:edit' pk=details.pk %}">Editar post</a>
-    {% endif %}
-    {% endif %}
-</div>
-
-
-    
-
-
-
+</article>
 
 {% endblock  %}

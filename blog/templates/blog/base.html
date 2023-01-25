@@ -8,39 +8,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% include 'blog/head.html' %}
-    <title> {% block title %}Home{% endblock %}</title>
+    <title> {% block title %}{{title}}{% endblock %}</title>
 </head>
 
 <body>
+    {% include 'blog/menu.html' %}
     {% include 'blog/header.html' %}
-    {% comment %} {% include 'blog/menu.html' %} {% endcomment %}
 
-    {% if not request.user.is_authenticated %}
-    <a href="{% url 'login:login' %}">Login</a> <br>
-    {% endif %}
-
-    {% if request.user.is_authenticated %}
-    <a href="{% url 'blog:new_post' %}">Novo post</a>
-    {% endif %}
-
-    <main class="main-content-container">
-
-        {% if request.user.is_authenticated %}
-        <div>
-            Você está logado como {{request.user.username}}.
-            Por favor,
-            <form class="inline-form" action="{% url 'login:logout' %}" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="username" value="{{request.user.username}}">
-                <button class="plainetext-button" type="submit"> clique aqui </button>
-            </form> para fazer logout.
-        </div>
-        {% endif %}
-        
         {% block content %}
 
         {% endblock %}
-    </main>
 
     {% include 'blog/footer.html' %}
 </body>

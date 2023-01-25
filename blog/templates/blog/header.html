@@ -1,10 +1,18 @@
-<header class="main-header-container">
-    <div class="main-header container">
-        <h1>
-            <a class="main-logo" href="{% url 'blog:index'%}">
-                {% comment %} <i class="fas fa-utensils main-logo-icon"></i> {% endcomment %}
-                <span class="main-logo-text">Meu blog</span>
-            </a>
-        </h1>
+{% load static %}
+<header class="masthead" style="background-image: {% static 'assets/home-bg.jpg' %}">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    {% if not details.title %}
+                    <h1>Venha conhecer</h1>
+                    <span class="subheading">Um blog completo</span>
+                    {% else %}
+                    <h1>{{details.title}}</h1>
+                    <span class="subheading">{{details.sub_title}}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 </header>

@@ -3,8 +3,8 @@ from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
                               render)
 from django.utils import timezone
 
+from .forms import PostForm
 from .models import Post
-from .post import PostForm
 
 
 def index(request):
