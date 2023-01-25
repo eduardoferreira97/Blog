@@ -1,18 +1,54 @@
 {% load static %}
-<header class="masthead" style="background-image: {% static 'assets/home-bg.jpg' %}">
-    <div class="container position-relative px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <div class="site-heading">
+
+{% if details.cover %}
+
+<header class="masthead" style="background-image: url({{ details.cover.url }})">
+
+    {% else %}
+
+    <header class="masthead" style="background-image: url('{% static 'global/assets/home-bg.jpg' %}')">
+
+        {% endif %}
+
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+
                     {% if not details.title %}
-                    <h1>Venha conhecer</h1>
-                    <span class="subheading">Um blog completo</span>
+                    <div class="site-heading">
+
+                        <h1>Venha conhecer</h1>
+                        <span class="subheading">Um blog completo</span>
+                    </div>
                     {% else %}
-                    <h1>{{details.title}}</h1>
-                    <span class="subheading">{{details.sub_title}}</span>
+                    <div class="post-heading">
+                        <h1>{{details.title}}</h1>
+                        <span class="subheading">{{details.sub_title}}</span>
+
+                        {% if details.author is not None %}
+                        <span class="recipe-author-item">
+                            Postado por
+                        
+                                {% if recipe.author.first_name %}
+                                <a href="{% url 'blog:filter' details.author.id details.author.username %}">
+                                    {{ details.author.first_name }} {{ details.author.last_name }}
+                                </a>
+                                {% else %}
+                                <a href="{% url 'blog:filter' details.author.id details.author.username %}">
+                                    {{details.author.username }}
+                                </a>
+                                {% endif %}
+                        </span>
+                        {% endif %}
+                        <!-- Informações autor  -->
+                        <span class="recipe-author-item">
+                            
+                            - {{ details.created_at|date:"d/m/Y" }} às {{ details.created_at|date:"H:i" }}
+                        </span>
+                    </div>
                     {% endif %}
+
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>

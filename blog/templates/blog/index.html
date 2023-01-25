@@ -22,18 +22,17 @@
                     </a>
                     <p class="post-meta">
                         <span class="recipe-author-item">
-                            {% if posts.author.profile %}
-                                Postado por <a href="{% url 'authors:profile' posts.author.profile.id %}">
-                            {% endif %}
+                           
                                 <i class="fas fa-user"></i>
                             {% if posts.author.first_name %}
                                 Postado por <a href="{% url 'blog:filter' posts.author.id posts.author.username %}"> {{ posts.author.first_name }} {{ posts.author.last_name }}</a>
                             {% else %}
                                 Postado por <a href="{% url 'blog:filter' posts.author.id posts.author.username %}">{{ posts.author.username }}</a>
                             {% endif %}
+                                </a>
                            </span>
                         <span class="recipe-author-item">
-                        <i class="fas fa-calendar-alt"></i> {{ posts.created_at|date:"d/m/Y" }} às {{ posts.created_at|date:"H:i" }}
+                        <i class="fas fa-calendar-alt"> </i> {{ posts.created_at|date:"d/m/Y" }} às {{ posts.created_at|date:"H:i" }}
                         </span>
                     </p>
                 </div>

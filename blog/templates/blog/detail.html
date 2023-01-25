@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% load static %}
-{% block title %} {{title}} | Detalhes{% endblock  %}
+{% block title %} {{title}} | Detalhes{% endblock %}
 
 {% block content %}
 
@@ -10,35 +10,12 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
 
-                <p>{{ details.text|linebreaksbr }}</p>
+                {% autoescape off %}
+                    <p style="text-align: justify;">{{ details.text|linebreaksbr }}</p>
+                {% endautoescape %}
 
                 <div class="recipe-author">
-                {% if details.author is not None %}
-                        <span class="recipe-author-item">
-                            Postado por 
-                            {% if recipe.author.profile %}
-                                <a href="{% url 'cook:index' %}">
-                            {% endif %}
-            
-                            <i class="fas fa-user"></i>
-                            {% if recipe.author.first_name %}
-                                {{ details.author.first_name }} {{ details.author.last_name }}
-                            {% else %}
-                                <a href="{% url 'blog:filter' details.author.id details.author.username %}">{{ details.author.username }}</a>
-                            {% endif %}
-            
-                            {% if details.author.profile %}
-                                
-                            {% endif %}
-            
-                        </span>
-                    {% endif %}
-            
-                    <span class="recipe-author-item">
-                        <i class="fas fa-calendar-alt"></i>
-                        {{ details.created_at|date:"d/m/Y" }} às {{ details.created_at|date:"H:i" }}
-                    </span>
-
+                    <!-- Editar caso o post seja seu e você esteja logado -->
                     {% if request.user.is_authenticated and request.user.username == details.author.username %}
                     <div class="d-flex justify-content-end mb-4">
                         <a class="btn btn-primary text-uppercase" href="{% url 'blog:edit' pk=details.pk %}">Editar post</a>
@@ -50,4 +27,4 @@
     </div>
 </article>
 
-{% endblock  %}
+{% endblock %}

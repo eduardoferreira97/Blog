@@ -2,29 +2,32 @@
 
 {% load static %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}Novo Post{% endblock  %}
 
 {% block content %}
-<a href="{% url 'blog:index' %}"><ion-icon name="arrow-back-outline"></ion-icon></a>
-<div class="main-content container">
 
-    <h2>Novo post</h2>
-    <form method="POST" class="post-form" enctype="multipart/form-data">
-       {% csrf_token %}
-        <div class="form-content form-content-grid">
-
-            <div class="form-group">
-                <field for="{{form.id_for_label}}">{{form.label}}</field>
-                    {{form.as_p}}
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <h2>Novo post</h2>
+                <div class="mb-3">
+                    <form id="contactForm" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-floating">
+                            
+                            <label for="{{form.id_for_label}}">{{form.label}}</label>
+                                {{form | crispy}}
+                            </div>
+                        <!-- Submit Button-->
+                        <button style="margin: 5% 0px" class="btn btn-primary text-uppercase" type="submit">Enviar</button>
+                    </form>
+                </div>
             </div>
         </div>
-
-        <div class="form-content form-content-grid">
-            <div class="form-group">
-        <button type="submit" value="POST">Salvar</button>
-            </div>
-        </div>
-    </form>
-</div>
+    </div>
+</main>
 
 {% endblock %}

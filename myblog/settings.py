@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CRISPY_TEMPLATE_PACK = 'bootstrap'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # EMAIL_FILE_PATH = BASE_DIR/'emails'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "blog",
     "login",
-
     "crispy_forms",
 
 ]
