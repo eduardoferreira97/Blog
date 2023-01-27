@@ -31,26 +31,16 @@ ALLOWED_HOSTS = []
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # EMAIL_FILE_PATH = BASE_DIR/'emails'
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'seu e-mail'
+EMAIL_FROM = 'your e-mail'
+EMAIL_HOST_USER = 'your e-mail'
 EMAIL_HOST_PASSWORD = 'ymrpskscjjqantjg'  # Sua senha
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
-# <-- this folder you uploaded image saved in s3 under media folder
-CKEDITOR_UPLOAD_PATH = "uploadsCK/"
-CKEDITOR_RESTRICT_BY_USER = True
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Full',
-        'height': 300,
-        'width': 300,
-
-    },
-}
+PASSWORD_RESET_TIMEOUT = 14400
 
 # Application definition
 
@@ -64,8 +54,6 @@ INSTALLED_APPS = [
     "blog",
     "login",
     "crispy_forms",
-    "ckeditor",
-    "ckeditor_uploader",
 
 ]
 
