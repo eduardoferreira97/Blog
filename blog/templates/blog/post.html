@@ -1,5 +1,10 @@
 {% extends 'blog/base.html' %}
 
+{% block extrahead %}
+<script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
+{{ block.super }}
+
+{% endblock %}
 {% load static %}
 
 {% load crispy_forms_tags %}
@@ -13,6 +18,7 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <h2>Novo post</h2>
+                <br>
                 <div class="mb-3">
                     <form id="contactForm" method="post" enctype="multipart/form-data">
                         {% csrf_token %}

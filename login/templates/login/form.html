@@ -1,22 +1,40 @@
 {% if not request.user.is_authenticated %}
+
 <div class="main-content container">
+
     <form action="{{form_action}}" method="POST">
+
         {% csrf_token %}
+
         <div class="form-content form-content-grid">
+
             {% for forms in forms %}
+
             <div class="form-group">
+
                 <field for="{{forms.id_for_label}}">{{forms.label}}</field>
+
                 {{forms}}
+
                 {% if forms.help_text %}
+
                 <p class="help-text">{{forms.help_text}}</p>
                 {% endif %}
+
                 {{forms.errors}}
+
             </div>
+
             {% endfor %}
+
         </div>
+
         <div class="form-content form-content-grid">
+
             <div class="form-group">
+
             <button type="submit">Enviar</button>
+            
             </div>
         </div>
     </form>

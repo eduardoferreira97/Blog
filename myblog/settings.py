@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,6 +38,20 @@ EMAIL_HOST_PASSWORD = 'ymrpskscjjqantjg'  # Sua senha
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+# <-- this folder you uploaded image saved in s3 under media folder
+CKEDITOR_UPLOAD_PATH = "uploadsCK/"
+CKEDITOR_RESTRICT_BY_USER = True
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Full',
+        'height': 300,
+        'width': 300,
+
+    },
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -49,6 +64,8 @@ INSTALLED_APPS = [
     "blog",
     "login",
     "crispy_forms",
+    "ckeditor",
+    "ckeditor_uploader",
 
 ]
 
@@ -122,13 +139,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
-STATICSFILES_DIRS = [
-    BASE_DIR / 'base_static',
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

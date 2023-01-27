@@ -5,23 +5,41 @@
 {% block content %}
 
 <div class="main-content center container">
-    <h2>Login</h2>
 
     {% if request.user.is_authenticated %}
+
+        <h2>Login - {{request.user.username}}</h2>
+
+    {% else %}
+
+    <h2>Login</h2>
+
+    {% endif %}
+
+    {% if request.user.is_authenticated %}
+
     <div>
-        Você está logado como {{request.user.username}}.
-        Por favor,
+
         <form class="inline-form" action="{% url 'login:logout' %}" method="POST">
+
             {% csrf_token %}
             <input type="hidden" name="username" value="{{request.user.username}}">
-            <button class="plainetext-button" type="submit"> clique aqui </button>
-        </form> para fazer logout.
+            <button class="plainetext-button" type="submit">Logout</button>
+
+        </form>
     </div>
+
+    <div class="form-content form-content">
+        <a href="{% url 'blog:index' %}">Volte ao site</a>
+    </div>
+    
     {% endif %}
 
 </div>
 
 {% include 'login/messages.html' %}
+
+{% include 'login/dashboard.html' %}
 
 {% include 'login/form.html' %}
 

@@ -29,7 +29,7 @@
                             {% else %}
                                 Postado por <a href="{% url 'blog:filter' posts.author.id posts.author.username %}">{{ posts.author.username }}</a>
                             {% endif %}
-                                </a>
+                                
                            </span>
                         <span class="recipe-author-item">
                         <i class="fas fa-calendar-alt"> </i> {{ posts.created_at|date:"d/m/Y" }} às {{ posts.created_at|date:"H:i" }}

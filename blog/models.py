@@ -11,6 +11,7 @@ from PIL import Image
 
 
 class Post(models.Model):
+
     title = models.CharField(max_length=70, verbose_name=_('Titulo'))
     sub_title = models.CharField(
         max_length=250, default='', verbose_name=_('Subtitulo'))

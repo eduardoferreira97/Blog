@@ -2,10 +2,12 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from django.shortcuts import redirect, render
+from django.shortcuts import get_list_or_404, redirect, render
 from django.urls import reverse
 
-from .forms import LoginForm, RegisterForm
+from blog.models import Post
+
+from .forms import EditUserProfileForm, LoginForm, RegisterForm
 
 
 def register_view(request):
@@ -38,14 +40,6 @@ def register_create(request):
     return redirect('login:register')
 
 
-def login_view(request):
-    form = LoginForm()
-    return render(request, 'login/login.html', {
-        'forms': form,
-        'form_action': reverse('login:login_create')
-    })
-
-
 def login_create(request):
 
     if not request.POST:
@@ -72,6 +66,19 @@ def login_create(request):
     return redirect(login_url)
 
 
+def login_view(request):
+    form = LoginForm()
+
+    detalhe = Post.objects.filter(
+        author__id=request.user.id).order_by('-id')
+
+    return render(request, 'login/login.html', {
+        'forms': form,
+        'detalhe': detalhe,
+        'form_action': reverse('login:login_create')
+    })
+
+
 @login_required(login_url='login:login', redirect_field_name='next')
 def logout_view(request):
 
@@ -82,4 +89,4 @@ def logout_view(request):
         return redirect(reverse('login:login'))
 
     logout(request)
-    return redirect(reverse('blog:index'))
+    return redirect(reverse('login:login'))

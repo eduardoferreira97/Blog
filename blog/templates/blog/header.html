@@ -30,11 +30,11 @@
                             Postado por
                         
                                 {% if recipe.author.first_name %}
-                                <a href="{% url 'blog:filter' details.author.id details.author.username %}">
+                                <a style="color: #fff" href="{% url 'blog:filter' details.author.id details.author.username %}">
                                     {{ details.author.first_name }} {{ details.author.last_name }}
                                 </a>
                                 {% else %}
-                                <a href="{% url 'blog:filter' details.author.id details.author.username %}">
+                                <a style="color: #fff" href="{% url 'blog:filter' details.author.id details.author.username %}">
                                     {{details.author.username }}
                                 </a>
                                 {% endif %}

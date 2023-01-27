@@ -1,0 +1,19 @@
+{% if request.user.is_authenticated %}
+
+<div class="form-content form-content">
+    <h1>Seus posts:</h1>
+</div>
+
+<div class="form-content form-content">
+
+    <ul>
+        {% for detalhes in detalhe %}
+        <li><a href="{% url 'blog:details' detalhes.id detalhes.slug %}">{{detalhes.title}}</a></li>
+        {% empty %}
+        Você ainda não fez nenhum post.
+        {% endfor %}
+    </ul>
+
+</div>
+
+{% endif %}
