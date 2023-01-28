@@ -17,7 +17,7 @@ from .tokens import account_activation_token
 
 
 def activateEmail(request, user, to_email):
-    mail_subject = 'Activate your user account.'
+    mail_subject = 'Ativação de conta - {user}.'
     message = render_to_string('login/template_activate_account.html', {
         'user': user.username,
         'domain': get_current_site(request).domain,
@@ -27,11 +27,11 @@ def activateEmail(request, user, to_email):
     })
     email = EmailMessage(mail_subject, message, to=[to_email])
     if email.send():
-        messages.success(request, f'Dear <strong>{user}</strong>, please go to you email <strong>{to_email}</strong> inbox and click on \
-            received activation link to confirm and complete the registration. <strong>Note:</strong> Check your spam folder.')
+        messages.success(request, f'<strong>{user}</strong>, por favor para o seu email: <strong>{to_email}</strong> e click no \
+            link recebido para confirmar e completar o seu registro.<br><strong>Nota:</strong> Verifique a sua caixa de spam.')
     else:
         messages.error(
-            request, f'Problem sending confirmation email to {to_email}, check if you typed it correctly.')
+            request, f'problema ao enviar o email de confirmação para {to_email}, verifique se o e-mail foi enviado corretamente.')
 
 
 def activate(request, uidb64, token):
@@ -47,7 +47,7 @@ def activate(request, uidb64, token):
         user.save()
 
         messages.success(
-            request, 'Thank you for your email confirmation. Now you can login your account.')
+            request, 'Obrigado por confirmar o seu e-mail. Agora você pode fazer o login na sua conta.')
         return redirect('login:login')
     else:
         messages.error(request, 'Activation link is invalid!')

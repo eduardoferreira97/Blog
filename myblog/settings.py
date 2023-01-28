@@ -29,9 +29,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-# EMAIL_FILE_PATH = BASE_DIR/'emails'
 
-
+# Configuração para envio de e-mail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_FROM = 'your e-mail'
