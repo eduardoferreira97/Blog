@@ -77,7 +77,8 @@ def delete(request, pk):
     form = get_object_or_404(Post, pk=pk)
     titulo = form.title
     form.delete()
-    messages.success(request,  f'Post {titulo} foi deletado com sucesso.')
+    messages.success(
+        request,  f'Post <strong>{titulo}</strong> foi deletado com sucesso.')
     return redirect('blog:index')
 
 

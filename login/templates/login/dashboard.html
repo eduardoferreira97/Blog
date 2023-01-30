@@ -1,3 +1,5 @@
+{% load static %}
+
 {% if request.user.is_authenticated %}
 
 <div class="form-content form-content">
@@ -5,15 +7,27 @@
 </div>
 
 <div class="form-content form-content">
-
-    <ul>
+    <table class="table table-hover">
+       
         {% for detalhes in detalhe %}
-        <li><a href="{% url 'blog:details' detalhes.id detalhes.slug %}">{{detalhes.title}}</a></li>
+          <tbody>
+            <tr>
+            
+              <th style="text-align: justify;" scope="row"><a href="{% url 'blog:details' detalhes.id detalhes.slug %}">{{detalhes.title}}</a></th>
+                <td>
+                <div class="d-flex justify-content-end mb-4">
+                    <a class="btn btn-primary text-uppercase" href="{% url 'blog:edit' detalhes.pk %}">Editar post</a>
+                    <a style="margin-rigth: 2rem;" class="btn btn-danger text-uppercase" id="delete" onclick="return confirm('Tem certeza que deseja deletar o post: {{detalhes.title}}')" href="{% url 'blog:delete_post' detalhes.pk %}">Deletar post</a>
+                </div>
+                </td>
+            
         {% empty %}
-        Você ainda não fez nenhum post.
-        {% endfor %}
-    </ul>
-
+            Você ainda não fez nenhum post.
+            
+            </tr>
+          </tbody>
+      {% endfor %}
+    </table>
 </div>
 
 {% endif %}
