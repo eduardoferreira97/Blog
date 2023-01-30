@@ -26,8 +26,8 @@ SECRET_KEY = "django-insecure-s8hcy_)50)%@rxx-g1x#k!n$pt#%*%9g%zesia-1sggza!jtje
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["renton12345.pythonanywhere.com"]
-
+# ALLOWED_HOSTS = ["renton12345.pythonanywhere.com"]
+ALLOWED_HOSTS = []
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Configuração para envio de e-mail
@@ -35,7 +35,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_FROM = 'animedudu12345@gmail.com'
 EMAIL_HOST_USER = 'animedudu12345@gmail.com'
-EMAIL_HOST_PASSWORD = 'xnqbztllerzaadtx'  # Sua senha
+EMAIL_HOST_PASSWORD = 'mmgxxsfzlrggyqvr'  # Sua senha
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
