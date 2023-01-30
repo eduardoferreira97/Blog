@@ -5,7 +5,9 @@
 {% block title %}{{title}}{% endblock  %}
 
 {% block content %}
-
+    
+    {% include 'blog/search_form.html' %}
+    
 {% for posts in post %}
 
     {% if posts.author is not None %}

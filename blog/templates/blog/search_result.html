@@ -1,0 +1,61 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+
+{% block title %}{{title}}{% endblock  %}
+
+{% block content %}
+
+{% include 'blog/search_form.html' %}
+
+{% for posts in result %}
+
+    {% if posts.author is not None %}
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <!-- Post preview-->
+                <div class="post-preview">
+                    <a href="{% url 'blog:details' posts.id posts.slug %}">
+                        <h2 class="post-title">{{ posts.title }}</h2>
+                        {% if posts.sub_title %}
+                        <h3 class="post-subtitle">{{ posts.sub_title }}</h3>
+                        {% endif %}
+                    </a>
+                    <p class="post-meta">
+                        <span class="recipe-author-item">
+                           
+                                <i class="fas fa-user"></i>
+                            {% if posts.author.first_name %}
+                                Postado por <a href="{% url 'blog:filter' posts.author.id posts.author.username %}"> {{ posts.author.first_name }} {{ posts.author.last_name }}</a>
+                            {% else %}
+                                Postado por <a href="{% url 'blog:filter' posts.author.id posts.author.username %}">{{ posts.author.username }}</a>
+                            {% endif %}
+                                
+                           </span>
+                        <span class="recipe-author-item">
+                        <i class="fas fa-calendar-alt"> </i> {{ posts.created_at|date:"d/m/Y" }} às {{ posts.created_at|date:"H:i" }}
+                        </span>
+                    </p>
+                </div>
+                <!-- Divider-->
+                <hr class="my-4" />
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% empty %}
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+        <h3>Não foi encontrado nenhum resultado 🥲</h3>
+        <br>
+        </div>
+    </div>
+</div>
+
+
+{% endfor %}
+
+
+{% endblock  %}

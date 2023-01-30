@@ -2212,6 +2212,7 @@ progress {
 .form-control[type=file]:not(:disabled):not([readonly]) {
   cursor: pointer;
 }
+
 .form-control:focus {
   color: #212529;
   background-color: #fff;
@@ -3186,6 +3187,7 @@ textarea.form-control-lg {
   background-color: #f9fafb;
   border-color: #f9fafb;
 }
+
 .btn-check:focus + .btn-light, .btn-light:focus {
   color: #000;
   background-color: #f9fafb;
@@ -7043,6 +7045,7 @@ textarea.form-control-lg {
 
 .me-1 {
   margin-right: 0.25rem !important;
+  margin-left: 5rem !important;
 }
 
 .me-2 {

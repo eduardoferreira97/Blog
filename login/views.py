@@ -27,11 +27,15 @@ def activateEmail(request, user, to_email):
     })
     email = EmailMessage(mail_subject, message, to=[to_email])
     if email.send():
-        messages.success(request, f'<strong>{user}</strong>, por favor para o seu email: <strong>{to_email}</strong> e click no \
-            link recebido para confirmar e completar o seu registro.<br><strong>Nota:</strong> Verifique a sua caixa de spam.')
+        messages.success(request, f'<strong>{user}</strong>, por favor para o \
+                         seu email: <strong>{to_email}</strong> e click no \
+            link recebido para confirmar e completar o seu registro.<br>\
+                         <strong>Nota:</strong>\
+                          Verifique a sua caixa de spam.')
     else:
         messages.error(
-            request, f'problema ao enviar o email de confirmação para {to_email}, verifique se o e-mail foi enviado corretamente.')
+            request, f'problema ao enviar o email de confirmação para \
+                {to_email}, verifique se o e-mail foi enviado corretamente.')
 
 
 def activate(request, uidb64, token):
@@ -47,10 +51,11 @@ def activate(request, uidb64, token):
         user.save()
 
         messages.success(
-            request, 'Obrigado por confirmar o seu e-mail. Agora você pode fazer o login na sua conta.')
+            request, 'Obrigado por confirmar o seu e-mail. Agora você pode\
+                  fazer o login na sua conta.')
         return redirect('login:login')
     else:
-        messages.error(request, 'Activation link is invalid!')
+        messages.error(request, 'O link de ativação é válido')
 
     return redirect('blog:index')
 

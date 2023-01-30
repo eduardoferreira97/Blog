@@ -17,4 +17,5 @@ class PostAdmin(admin.ModelAdmin):
         'slug': ('title',)
     }
 
+
 # admin.site.register(Post)

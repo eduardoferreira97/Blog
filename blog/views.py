@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user
 from django.contrib.auth.decorators import login_required
+# PERMITE USAR A CONDICIONAL 'OR' NO FILTRO DO BANCO DE DADOS
+from django.db.models import Q
 from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
                               render)
 from django.utils import timezone
@@ -9,9 +11,26 @@ from .models import Post
 
 
 def index(request):
-    post = get_list_or_404(Post.objects.filter(
-        is_published=True).order_by('-id'))
-    return render(request, 'blog/index.html', {'post': post, 'title': 'Home'})
+    post = Post.objects.filter(
+        is_published=True).order_by('-id')
+
+    return render(request, 'blog/index.html', {'post': post,
+                                               'title': 'Home'})
+
+
+def search(request):
+
+    search = request.GET.get('search')
+
+    result = Post.objects.filter(
+        Q(title__contains=search) | Q(sub_title__contains=search)
+        | Q(author__username__contains=search) | Q(text__contains=search)
+    ).order_by('-id')
+
+    return render(request, 'blog/search_result.html',
+                  {'result': result,
+                   'search': search,
+                   'title': f'Pesquisa: {search}'})
 
 
 def detail(request, pk, slug):
