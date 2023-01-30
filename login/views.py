@@ -17,7 +17,7 @@ from .tokens import account_activation_token
 
 
 def activateEmail(request, user, to_email):
-    mail_subject = 'Ativação de conta - {user}.'
+    mail_subject = f'Ativação de conta - {user.username}'
     message = render_to_string('login/template_activate_account.html', {
         'user': user.username,
         'domain': get_current_site(request).domain,
@@ -110,6 +110,10 @@ def login_create(request):
         if authenticate_user is not None:
             messages.success(request, 'Você está logado')
             login(request, authenticate_user)
+            return redirect(login_url)
+        if not request.user.is_active:
+            messages.error(
+                request, 'Sua conta ainda não foi ativada')
             return redirect(login_url)
         messages.error(request, 'Credenciais inválidas')
         return redirect(login_url)

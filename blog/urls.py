@@ -12,4 +12,5 @@ urlpatterns = [
     path('filter/<int:pk>/<str:username>', views.filter, name="filter"),
     path('search/', views.search, name="search"),
     path('delete/<int:pk>', views.delete, name="delete_post"),
+    path('contato/', views.contato, name="contato"),
 ]

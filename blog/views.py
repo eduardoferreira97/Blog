@@ -1,14 +1,35 @@
 from django.contrib import messages
 from django.contrib.auth import get_user
 from django.contrib.auth.decorators import login_required
+from django.core.mail import BadHeaderError, send_mail
 # PERMITE USAR A CONDICIONAL 'OR' NO FILTRO DO BANCO DE DADOS
 from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
                               render)
 from django.utils import timezone
 
-from .forms import PostForm
+from .forms import ContactForm, PostForm
 from .models import Post
+
+
+def contato(request):
+
+    if request.method == "GET":
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data["subject"]
+            from_email = form.cleaned_data["email"]
+            message = form.cleaned_data['message']
+            try:
+                send_mail(subject, message, from_email,
+                          ["projetodjango23@gmail.com"])
+            except BadHeaderError:
+                return HttpResponse("Invalid header found.")
+            return redirect('blog:contato')
+    return render(request, "blog/contact.html", {"form": form})
 
 
 def index(request):
