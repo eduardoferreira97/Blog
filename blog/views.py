@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import get_user
 from django.contrib.auth.decorators import login_required
 # PERMITE USAR A CONDICIONAL 'OR' NO FILTRO DO BANCO DE DADOS
@@ -69,6 +70,15 @@ def edit(request, pk):
         form = PostForm(instance=edit)
 
     return render(request, 'blog/post.html', {'form': form})
+
+
+@login_required
+def delete(request, pk):
+    form = get_object_or_404(Post, pk=pk)
+    titulo = form.title
+    form.delete()
+    messages.success(request,  f'Post {titulo} foi deletado com sucesso.')
+    return redirect('blog:index')
 
 
 def filter(request, pk, username):

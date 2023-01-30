@@ -10,5 +10,6 @@ urlpatterns = [
     path('post/novo/', views.post, name="new_post"),
     path('editar/post/<int:pk>', views.edit, name="edit"),
     path('filter/<int:pk>/<str:username>', views.filter, name="filter"),
-    path('search/', views.search, name="search")
+    path('search/', views.search, name="search"),
+    path('delete/<int:pk>', views.delete, name="delete_post"),
 ]
