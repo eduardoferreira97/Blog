@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.translation import gettext as _
 
 from blog.models import Post
 
@@ -17,7 +18,7 @@ from .tokens import account_activation_token
 
 
 def activateEmail(request, user, to_email):
-    mail_subject = f'Ativação de conta - {user.username}'
+    mail_subject = _(f'Ativação de conta - {user.username}')
     message = render_to_string('login/template_activate_account.html', {
         'user': user.username,
         'domain': get_current_site(request).domain,
@@ -27,15 +28,15 @@ def activateEmail(request, user, to_email):
     })
     email = EmailMessage(mail_subject, message, to=[to_email])
     if email.send():
-        messages.success(request, f'<strong>{user}</strong>, por favor para o \
+        messages.success(request, _(f'<strong>{user}</strong>, vá por favor para o \
                          seu email: <strong>{to_email}</strong> e click no \
             link recebido para confirmar e completar o seu registro.<br>\
                          <strong>Nota:</strong>\
-                          Verifique a sua caixa de spam.')
+                          Verifique a sua caixa de spam.'))
     else:
         messages.error(
-            request, f'problema ao enviar o email de confirmação para \
-                {to_email}, verifique se o e-mail foi enviado corretamente.')
+            request, _(f'problema ao enviar o email de confirmação para \
+                {to_email}, verifique se o e-mail foi digitado corretamente.'))
 
 
 def activate(request, uidb64, token):
@@ -51,11 +52,11 @@ def activate(request, uidb64, token):
         user.save()
 
         messages.success(
-            request, 'Obrigado por confirmar o seu e-mail. Agora você pode\
-                  fazer o login na sua conta.')
+            request, _('Obrigado por confirmar o seu e-mail. Agora você pode\
+                  fazer o login na sua conta.'))
         return redirect('login:login')
     else:
-        messages.error(request, 'O link de ativação é válido')
+        messages.error(request, _('O link de ativação é válido'))
 
     return redirect('blog:index')
 
@@ -86,7 +87,7 @@ def register_create(request):
         del (request.session['register_form_data'])
         return redirect(reverse('login:login'))
 
-    messages.error(request, 'Erro ao criar a conta')
+    messages.error(request, _('Erro ao criar a conta'))
 
     return redirect('login:register')
 
@@ -108,16 +109,16 @@ def login_create(request):
         )
 
         if authenticate_user is not None:
-            messages.success(request, 'Você está logado')
+            messages.success(request, _('Você está logado'))
             login(request, authenticate_user)
             return redirect(login_url)
         if not request.user.is_active:
             messages.error(
-                request, 'Sua conta ainda não foi ativada')
+                request, _('Sua conta ainda não foi ativada'))
             return redirect(login_url)
-        messages.error(request, 'Credenciais inválidas')
+        messages.error(request, _('Credenciais inválidas'))
         return redirect(login_url)
-    messages.error(request, 'Erro ao validar os dados')
+    messages.error(request, _('Erro ao validar os dados'))
     return redirect(login_url)
 
 

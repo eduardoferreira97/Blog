@@ -17,8 +17,8 @@
                     {% if not details.title %}
                     <div class="site-heading">
 
-                        <h1>Venha conhecer</h1>
-                        <span class="subheading">Um blog completo</span>
+                        <h1>Venha conhecer </h1>
+                        <span class="subheading">Um blog completo </span>
                     </div>
                     {% else %}
                     <div class="post-heading">
@@ -29,7 +29,7 @@
                         <span class="recipe-author-item">
                             Postado por
                         
-                                {% if recipe.author.first_name %}
+                                {% if details.author.first_name %}
                                 <a style="color: #fff" href="{% url 'blog:filter' details.author.id details.author.username %}">
                                     {{ details.author.first_name }} {{ details.author.last_name }}
                                 </a>

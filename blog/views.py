@@ -26,8 +26,10 @@ def contato(request):
             try:
                 send_mail(subject, message, from_email,
                           ["projetodjango23@gmail.com"])
+                messages.success(
+                    request,  'E-mail enviado sucesso.')
             except BadHeaderError:
-                return HttpResponse("Invalid header found.")
+                return HttpResponse("Erro ao enviar sua mensagem")
             return redirect('blog:contato')
     return render(request, "blog/contact.html", {"form": form})
 
@@ -45,8 +47,12 @@ def search(request):
     search = request.GET.get('search')
 
     result = Post.objects.filter(
-        Q(title__contains=search) | Q(sub_title__contains=search)
-        | Q(author__username__contains=search) | Q(text__contains=search)
+        Q(title__contains=search)
+        | Q(sub_title__contains=search)
+        | Q(author__username__contains=search)
+        | Q(author__first_name__contains=search)
+        | Q(author__last_name__contains=search)
+        | Q(text__contains=search)
     ).order_by('-id')
 
     return render(request, 'blog/search_result.html',
