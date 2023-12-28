@@ -21,43 +21,43 @@ To run this project, you will need the following:
 
 To install the project, follow these steps:
 
-    Clone the GitHub repository:
+1.Clone the GitHub repository:
 
-git clone https://github.com/eduardoferreira97/Blog.git
+    git clone https://github.com/eduardoferreira97/Blog.git
 
-    Change to the project directory:
+2.Change to the project directory:
 
-cd Blog
+    cd Blog
 
-    Create a virtual environment:
+3.Create a virtual environment:
 
-python3 -m venv venv
+    python3 -m venv venv
 
-    Activate the virtual environment:
+4.Activate the virtual environment:
 
-source venv/bin/activate
+    source venv/bin/activate
 
-    Install the dependencies:
+5.Install the dependencies:
 
-pip install -r requirements.txt
+    pip install -r requirements.txt
 
-    Create the database:
+6.Create the database:
 
-python manage.py migrate
+    python manage.py migrate
 
-    Create a superuser:
+7.Create a superuser:
 
-python manage.py createsuperuser
+    python manage.py createsuperuser
 
 # Running
 
 To run the project, follow these steps:
 
-    Start the development server:
+-Start the development server:
 
-python manage.py runserver
+    python manage.py runserver
 
-    Open your browser and navigate to the address http://localhost:8000.
+Open your browser and navigate to the address http://localhost:8000.
 
 # Usage example
 
